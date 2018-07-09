@@ -1,0 +1,5 @@
+.gitigore
+node_modules
+config.json
+src/data/joke.js
+package-lock.json
