@@ -2,4 +2,6 @@
 node_modules
 config.json
 src/data/joke.js
+src/data/word.js
 package-lock.json
+.vscode

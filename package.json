@@ -11,6 +11,7 @@
   "dependencies": {
     "commando-provider-mongo": "^1.1.1",
     "discord.js": "^11.3.0",
-    "mongodb": "^3.0.2"
+    "mongodb": "^3.0.2",
+    "mongoose": "^5.2.2"
   }
 }
