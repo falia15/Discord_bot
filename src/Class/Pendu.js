@@ -17,7 +17,7 @@ class Pendu {
     }
 
     /**
-     * check if the letter parameter is in the word parameter, return an array of the string index position
+     * check if the letter parameter is in the word parameter, return an array of the letter index inside the word variable
      * @param {string} word 
      * @param {*char} letter
      * @return {*array} 
@@ -45,8 +45,6 @@ class Pendu {
      */
     updateWordGuess(wordGuess, arrayOfIndex, char){
         var service = new Service();
-        console.log(` array length moin un = ${arrayOfIndex.length-1}`);
-        console.log(arrayOfIndex);
 
         for(var i = 0; i < arrayOfIndex.length; i++){
             var wordGuess = service.ReplaceAtIndex(wordGuess, arrayOfIndex[i], char);
