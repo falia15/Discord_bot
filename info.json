@@ -1,5 +1,7 @@
 {
     "prefix" : "=",
     "penduCommand" : "pendu",
-    "jokeCommand" : "joke"
+    "jokeCommand" : "joke",
+    "jeu" : "NieR Automata",
+    "penduGameStart" : "start"
 }

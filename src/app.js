@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 const Command = require('./Class/Command');
 const Service = require('./Class/Service.js');
 const Pendu = require('./Class/Pendu.js');
+const BasicCommand = require('./Class/BasicCommand.js');
 
 // Json config files
 const config = require("../config.json");
@@ -13,11 +14,12 @@ const myBot = new Discord.Client();
 const command = new Command();
 const service = new Service();
 const pendu = new Pendu();
+const basicCommand = new BasicCommand();
 
 // Check if the bot is working
 myBot.on('ready',  () => {
     console.log("Je suis là !");
-    myBot.user.setActivity("jeu en cours");
+    myBot.user.setActivity(info.jeu);
 });
 
 // init Pendu Game variable
@@ -32,7 +34,7 @@ myBot.on('message', message => {
 
     if(command.joke(message)){
 
-        joke = service.getJoke();
+        joke = basicCommand.getJoke();
 
         message.channel.send(joke);
     }
@@ -43,13 +45,17 @@ myBot.on('message', message => {
     var penduMessage = command.getMessageContent(message, info.penduCommand);
     
     // check if the game start command is send
-    if(penduMessage == 'start'){
+    if(penduMessage == info.penduGameStart){
         
-        message.channel.send('A new game was launch ! Do your best');
+        if(word != 0){
+            return message.channel.send('A game already begun');
+        }
 
         word = pendu.getWord();
         wordGuess = pendu.genereWordGuess(word);
-        life = 5;
+        life = 12;
+
+        message.channel.send(`A new game was launch ! Do your best ! \n Word : ${wordGuess}`);
     
     }
 
@@ -58,7 +64,7 @@ myBot.on('message', message => {
 
         // check if the game was previously initialise, as 0 is the default value of "word" variable
         if(word == 0){
-            return message.channel.send(`You first need to start the game with ${info.prefix}${info.penduCommand}`);
+            return message.channel.send(`You first need to start the game with ${info.prefix}${info.penduCommand}${info.penduGameStart}`);
         }
 
         // return an array of the letter index inside the word variable
@@ -87,6 +93,15 @@ myBot.on('message', message => {
     if(wordGuess == word){
         message.channel.send(`You won ! The word was ${word}`);
         word = 0;
+    }
+
+    // show the current word to guess
+    if(penduMessage == 'show'){
+        if( word != 0){
+            message.channel.send(`The current word is : ${wordGuess}`);
+        } else {
+            message.channel.send(`You first need to start the game with ${info.prefix}${info.penduCommand}${info.penduGameStart}`);
+        }
     }
 
 });

@@ -1,6 +1,6 @@
 botInfo = require('../../info.json');
 /**
- * Hangle anything related to the Discord's server command
+ * Hangle anything related to the Discord's server command users sent
  */
 class Command {
 
