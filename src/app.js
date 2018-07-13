@@ -2,7 +2,7 @@
 const Discord = require("discord.js");
 const Command = require('./Class/Command');
 const Service = require('./Class/Service.js');
-const Pendu = require('./Class/Pendu.js');
+const Hangman = require('./Class/Hangman.js');
 const BasicCommand = require('./Class/BasicCommand.js');
 
 // Json config files
@@ -13,7 +13,7 @@ const info = require('../info.json');
 const myBot = new Discord.Client();
 const command = new Command();
 const service = new Service();
-const pendu = new Pendu();
+const hangman = new Hangman();
 const basicCommand = new BasicCommand();
 
 // Check if the bot is working
@@ -22,7 +22,7 @@ myBot.on('ready',  () => {
     myBot.user.setActivity(info.jeu);
 });
 
-// init Pendu Game variable
+// init Hangman Game variable
 var word = 0;
 var wordGuess = 1;
 var life;
@@ -39,40 +39,44 @@ myBot.on('message', message => {
         message.channel.send(joke);
     }
 
+    if(command.help(message)){
+        message.author.send(basicCommand.getHelp());
+    }
+
     // PENDU GAME
 
-    // get all content after the prefix + pendu command (here =prefix)
-    var penduMessage = command.getMessageContent(message, info.penduCommand);
+    // get all content after the prefix + hangman command (here =prefix)
+    var hangmanMessage = command.getMessageContent(message, info.hangmanCommand).toLowerCase();
     
     // check if the game start command is send
-    if(penduMessage == info.penduGameStart){
+    if(hangmanMessage == info.hangmanGameStart){
         
         if(word != 0){
             return message.channel.send('A game already begun');
         }
 
-        word = pendu.getWord();
-        wordGuess = pendu.genereWordGuess(word);
+        word = hangman.getWord();
+        wordGuess = hangman.genereWordGuess(word);
         life = 12;
 
         message.channel.send(`A new game was launch ! Do your best ! \n Word : ${wordGuess}`);
     
     }
 
-    // check if a letter was send with the pendu command
-    if(service.isLetter(penduMessage)){
+    // check if a letter was send with the hangman command
+    if(service.isLetter(hangmanMessage)){
 
         // check if the game was previously initialise, as 0 is the default value of "word" variable
         if(word == 0){
-            return message.channel.send(`You first need to start the game with ${info.prefix}${info.penduCommand}${info.penduGameStart}`);
+            return message.channel.send(`You first need to start the game with ${info.prefix}${info.hangmanCommand}${info.hangmanGameStart}`);
         }
 
         // return an array of the letter index inside the word variable
-        var arrayOfLetter = pendu.isLetterInWord(word, penduMessage);
+        var arrayOfLetter = hangman.isLetterInWord(word, hangmanMessage);
 
         // check if the array lenth is bigger than 0, it means the user's letter was in the word
         if(arrayOfLetter.length > 0){
-            wordGuess = pendu.updateWordGuess(wordGuess, arrayOfLetter, penduMessage)
+            wordGuess = hangman.updateWordGuess(wordGuess, arrayOfLetter, hangmanMessage)
 
             message.channel.send(wordGuess);
         } else {
@@ -80,7 +84,7 @@ myBot.on('message', message => {
             life--;
 
             if(life > 0){
-                message.channel.send(`The letter ${penduMessage} is not in the word, you still have ${life} life`);
+                message.channel.send(`The letter ${hangmanMessage} is not in the word, you still have ${life} life`);
             } else {
                 message.channel.send(`You lost, the word was : ${word}`);
                 word = 0;
@@ -96,14 +100,14 @@ myBot.on('message', message => {
     }
 
     // show the current word to guess
-    if(penduMessage == 'show'){
+    if(hangmanMessage == info.hangmanGameShow){
         if( word != 0){
             message.channel.send(`The current word is : ${wordGuess}`);
         } else {
-            message.channel.send(`You first need to start the game with ${info.prefix}${info.penduCommand}${info.penduGameStart}`);
+            message.channel.send(`You first need to start the game with ${info.prefix}${info.hangmanCommand}${info.hangmanGameStart}`);
         }
     }
-
+    
 });
 
 myBot.login(config.token);

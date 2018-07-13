@@ -1,8 +1,8 @@
 const Service = require('./Service.js');
 /**
- * Pendu the game
+ * Hangman the game
  */
-class Pendu {
+class Hangman {
 
     /**
      * random word whitin an array of word.
@@ -57,4 +57,4 @@ class Pendu {
 
 }
 
-module.exports = Pendu;
+module.exports = Hangman;

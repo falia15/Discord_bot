@@ -39,12 +39,34 @@ class Command {
     }
 
     /**
-     * Check if the command is "pendu"
+     * Check if the command is "hangman"
      * @param message
      * @return bool
      */
-    pendu(message){
-        if(this.getCommand(message) == botInfo.penduCommand){
+    hangman(message){
+        if(this.getCommand(message) == botInfo.hangmanCommand){
+            return true;
+        }
+    }
+
+    /**
+     * Check if the command is "help"
+     * @param message
+     * @return bool
+     */
+    help(message){
+        if(this.getCommand(message) == botInfo.helpCommand){
+            return true;
+        }
+    }
+
+     /**
+     * Check if the command is "help"
+     * @param message
+     * @return bool
+     */
+    say(message){
+        if(this.getCommand(message) == botInfo.talkCommand){
             return true;
         }
     }
