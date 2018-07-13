@@ -107,6 +107,24 @@ myBot.on('message', message => {
             message.channel.send(`You first need to start the game with ${info.prefix}${info.hangmanCommand}${info.hangmanGameStart}`);
         }
     }
+
+     // only owner command
+     if(message.author.id !== config.OwnerID) return;
+
+    // talk instead of the bot
+    if(command.say(message)){
+
+        if(message.content.search('||') < 0)
+        return;
+        
+        var fields = basicCommand.talkInstead(message);
+        
+       if(!myBot.channels.get(fields[0]))
+       return;
+
+        myBot.channels.get(fields[0]).send(fields[1]);
+
+    }
     
 });
 

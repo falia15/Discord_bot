@@ -16,7 +16,10 @@ class BasicCommand {
         return service.getRandomInArray(array);
     }
 
-
+    /**
+     * Return a string that contains all the command available
+     * @return {*string}
+     */
     getHelp(){
         var string =` 
         **Command line** \n
@@ -30,6 +33,21 @@ class BasicCommand {
 
         var markdown = "```";
         return string;
+    }
+
+    /**
+     * Split the message when it account ||
+     * @param {*string} message
+     * @return {*array} 
+     */
+    talkInstead(message){
+        const Command = require('./Command.js');
+        var command = new Command();
+
+        let fields = command.getMessageContent(message, botInfo.talkCommand).split('||');
+
+        return fields;
+
     }
 
 
