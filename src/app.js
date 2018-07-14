@@ -46,7 +46,11 @@ myBot.on('message', message => {
     // PENDU GAME
 
     // get all content after the prefix + hangman command (here =prefix)
-    var hangmanMessage = command.getMessageContent(message, info.hangmanCommand).toLowerCase();
+    if(command.hangman(message)){
+        var hangmanMessage = command.getMessageContent(message, info.hangmanCommand).toLowerCase();
+    } else {
+        var hangmanMessage = false;
+    }
     
     // check if the game start command is send
     if(hangmanMessage == info.hangmanGameStart){
