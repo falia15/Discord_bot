@@ -19,7 +19,7 @@ const basicCommand = new BasicCommand();
 // Check if the bot is working
 myBot.on('ready',  () => {
     console.log("Je suis là !");
-    myBot.user.setActivity(info.jeu);
+    myBot.user.setActivity(info.jeu + `| ${info.prefix}help`);
 });
 
 // init Hangman Game variable

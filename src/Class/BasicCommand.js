@@ -34,7 +34,7 @@ class BasicCommand {
             .addField("Start the game",
                         `${botInfo.prefix}${botInfo.hangmanCommand} ${botInfo.hangmanGameStart}`)
             .addField("Suggest a letter",
-                        `${botInfo.prefix}${botInfo.hangmanCommand} + letter (Not case-sensitive)`)
+                        `${botInfo.prefix}${botInfo.hangmanCommand} + letter, all alphabetical letter + é and è, (Not case-sensitive), `)
             .addField("Show the current word of the running game",
                         `${botInfo.prefix}${botInfo.hangmanCommand} show`)
                         .setImage("https://i.redd.it/2lhcvv45pmaz.jpg")

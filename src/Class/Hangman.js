@@ -33,7 +33,7 @@ class Hangman {
      * @return {*string}
      */
     genereWordGuess(word){
-        var wordGuess = word.replace(/[a-z]/g, '-')
+        var wordGuess = word.replace(/[a-z-éè]/g, '-');
         return wordGuess;
     }
 
@@ -41,7 +41,7 @@ class Hangman {
      * Replace by the char given as parameter, the index of arrayOfIndex parameter inside the wordGuess parameter
      * @param {*string} wordGuess 
      * @param {*array} arrayOfIndex 
-     * @param {*string} char 
+     * @param {*string} char
      */
     updateWordGuess(wordGuess, arrayOfIndex, char){
         var service = new Service();

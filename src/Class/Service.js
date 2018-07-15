@@ -18,7 +18,7 @@ class Service {
      * @return {*bool}
      */
     isLetter(str){
-        return str.length === 1 && str.match(/[a-z]/i);
+        return str.length === 1 && str.match(/[a-z-éè]/i);
     }
 
     /**
