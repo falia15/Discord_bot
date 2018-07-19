@@ -23,6 +23,7 @@ class Command {
     getMessageContent(message, command){
         var prefixLenght = botInfo.prefix.length;
         var commandLenght =  command.length;
+
         return message.content.slice(prefixLenght + commandLenght + 1);
     }
 
