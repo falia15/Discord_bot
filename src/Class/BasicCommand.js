@@ -1,5 +1,5 @@
 const Service = require('./Service.js');
-const botInfo = require('../../info.json');
+const info = require('../../info.json');
 /** 
  * Handle every other feature that are too simple to have their own class
 */
@@ -28,15 +28,15 @@ class BasicCommand {
             .setDescription("Here is a list of the available commands")
             .setColor("#d0f0c0")
             .addField("Tell a joke",
-                        `${botInfo.prefix}${botInfo.jokeCommand}`)
+                        `${info.prefix}${info.jokeCommand}`)
             .addField("Hangman Game",
                         "One player thinks of a wordand the other(s) tries to guess it by suggesting letters, within a certain number of guesses.")
             .addField("Start the game",
-                        `${botInfo.prefix}${botInfo.hangmanCommand} ${botInfo.hangmanGameStart}`)
+                        `${info.prefix}${info.hangmanCommand} ${info.hangmanGameStart}`)
             .addField("Suggest a letter",
-                        `${botInfo.prefix}${botInfo.hangmanCommand} + letter, all alphabetical letter + é and è, (Not case-sensitive), `)
+                        `${info.prefix}${info.hangmanCommand} + letter, all alphabetical letter + é and è, (Not case-sensitive), `)
             .addField("Show the current word of the running game",
-                        `${botInfo.prefix}${botInfo.hangmanCommand} show`)
+                        `${info.prefix}${info.hangmanCommand} show`)
                         .setImage("https://i.redd.it/2lhcvv45pmaz.jpg")
             .setFooter("Image Credit : https://www.reddit.com/r/BokuNoHeroAcademia/comments/6oc64d/all_might_and_the_young_boys/");
                         
@@ -53,7 +53,7 @@ class BasicCommand {
         const Command = require('./Command.js');
         var command = new Command();
 
-        let fields = command.getMessageContent(message, botInfo.talkCommand).split('||');
+        let fields = command.getMessageContent(message, info.talkCommand).split('||');
 
         return fields;
 

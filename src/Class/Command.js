@@ -10,6 +10,9 @@ class Command {
     * @return command, string
     */
     getCommand(message) {
+        if(!message.content.startsWith(botInfo.prefix)){
+            return;
+        }
         let args = message.content.slice(botInfo.prefix.length).trim().split(/ +/g);
         let command = args.shift().toLowerCase();
         return command;
@@ -21,13 +24,12 @@ class Command {
      * @param command, string, command send with the message
      */
     getMessageContent(message, command){
-        var prefixLenght = botInfo.prefix.length;
-        var commandLenght =  command.length;
+        var commandInMessage = this.getCommand(message);
         var commands = botInfo.commands;
 
         for(var proprety in commands){
-            if(command == commands[proprety]){
-                return message.content.slice(prefixLenght + commandLenght + 1);
+            if(commandInMessage == commands[proprety] && commandInMessage == command){
+                return message.content.slice(botInfo.prefix.length + command.length + 1).toLowerCase();
             }
         }
 
@@ -76,7 +78,6 @@ class Command {
             return true;
         }
     }
-
 
 }
 
