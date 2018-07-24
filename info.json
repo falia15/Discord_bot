@@ -1,10 +1,12 @@
 {
     "prefix" : "=",
-    "helpCommand" : "help",
-    "jokeCommand" : "joke",
-    "hangmanCommand" : "man",
+    "commands" : {
+        "help" : "help",
+        "joke" : "joke",
+        "hangman" : "man",
+        "talk" : "say"
+    },
     "jeu" : "NieR Automata",
     "hangmanGameStart" : "start",
-    "hangmanGameShow" : "show",
-    "talkCommand" : "say"
+    "hangmanGameShow" : "show"
 }

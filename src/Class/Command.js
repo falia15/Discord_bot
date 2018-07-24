@@ -23,8 +23,14 @@ class Command {
     getMessageContent(message, command){
         var prefixLenght = botInfo.prefix.length;
         var commandLenght =  command.length;
+        var commands = botInfo.commands;
 
-        return message.content.slice(prefixLenght + commandLenght + 1);
+        for(var proprety in commands){
+            if(command == commands[proprety]){
+                return message.content.slice(prefixLenght + commandLenght + 1);
+            }
+        }
+
     }
 
     /**
@@ -33,7 +39,7 @@ class Command {
      * @return bool
      */
     joke(message){
-        if(this.getCommand(message) == botInfo.jokeCommand){
+        if(this.getCommand(message) == botInfo.commands.joke){
             return true;
         }
     }
@@ -44,7 +50,7 @@ class Command {
      * @return bool
      */
     hangman(message){
-        if(this.getCommand(message) == botInfo.hangmanCommand){
+        if(this.getCommand(message) == botInfo.commands.hangman){
             return true;
         }
     }
@@ -55,7 +61,7 @@ class Command {
      * @return bool
      */
     help(message){
-        if(this.getCommand(message) == botInfo.helpCommand){
+        if(this.getCommand(message) == botInfo.commands.help){
             return true;
         }
     }
@@ -66,7 +72,7 @@ class Command {
      * @return bool
      */
     say(message){
-        if(this.getCommand(message) == botInfo.talkCommand){
+        if(this.getCommand(message) == botInfo.commands.talk){
             return true;
         }
     }

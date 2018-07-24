@@ -44,20 +44,16 @@ myBot.on('message', message => {
         message.author.send(basicCommand.getHelp());
     }
 
-    // PENDU GAME
+    // HANGMAN GAME
 
     // get all content after the prefix + hangman command (here =prefix)
-    if(command.hangman(message)){
-        var hangmanMessage = command.getMessageContent(message, info.hangmanCommand).toLowerCase();
-    } else {
-        var hangmanMessage = false;
-    }
+    var hangmanMessage = command.getMessageContent(message, info.commands.hangman).toLowerCase();
     
     // check if the game start command is send
     if(hangmanMessage == info.hangmanGameStart){
         
         if(isRunning){
-            return message.channel.send('A game already begun');
+            return message.channel.send('The game has already begun');
         }
 
         word = hangman.getWord();
