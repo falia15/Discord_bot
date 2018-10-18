@@ -46,10 +46,37 @@ class Service {
      * @param {*int} index 
      * @param {*char} chr 
      */
-    ReplaceAtIndex(str, index, chr){
+    ReplaceAtIndex(str,index,chr){
         if(index > str.length-1) return str;
         return str.substr(0, index) + chr + str.substr(index+1);
     }
+
+    /**
+     * replace all character given as parameter by another caracther, in a string
+     * @param {*string} str 
+     * @param {*string} find 
+     * @param {*string} replace
+     * @return {string}
+     */
+    replaceAll(str, find, replace) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    }
+
+    searchInStrings(needle, array){
+
+        for(var i=0; i<array.length; i++){
+            if(typeof array[i] != undefined){
+                if(array[i].toLowerCase().includes(needle)){
+                    return array[i];
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+
 
 }
 

@@ -1,8 +1,19 @@
-const Service = require('./Service.js');
 /**
  * Hangman the game
  */
 class Hangman {
+
+    constructor(service){
+        this.service = service;
+        this.resetValue();
+    }
+
+    resetValue(){
+        this.word = this.getWord();
+        this.isRunning = false;
+        this.life = 12;
+        this.wordGuess = this.genereWordGuess();
+    }
 
     /**
      * random word whitin an array of word.
@@ -10,21 +21,30 @@ class Hangman {
      */
     getWord(){
         var arrayOfWord = require('../data/word.js');
-        var service = new Service();
-        var word = service.getRandomInArray(arrayOfWord);
+        var word = this.service.getRandomInArray(arrayOfWord);
 
         return word;
     }
 
     /**
-     * check if the letter parameter is in the word parameter, return an array of the letter index inside the word variable
-     * @param {string} word 
+     * check if the letter parameter is in the word parameter, return an array of the letter position in the word string
      * @param {*char} letter
      * @return {*array} 
      */
-    isLetterInWord(word, letter){
-        var service = new Service();
-        return service.strSearchAll(word, letter);
+    isLetterInWord(letter){
+        var wordToVerif = this.word;
+
+        // handle é as an e
+        if(wordToVerif.includes("é")) {
+            wordToVerif = this.service.replaceAll(wordToVerif, "é", "e");
+        }
+
+        // handle è as an e
+        if(wordToVerif.includes("è")) {
+            wordToVerif = this.service.replaceAll(wordToVerif, "è", "e");
+        }
+
+        return this.service.strSearchAll(wordToVerif, letter);
     }
 
     /**
@@ -32,8 +52,8 @@ class Hangman {
      * @param {*string} word
      * @return {*string}
      */
-    genereWordGuess(word){
-        var wordGuess = word.replace(/[a-z-éè]/g, '-');
+    genereWordGuess(){
+        var wordGuess = this.word.replace(/[a-z-éè]/g, '-');
         return wordGuess;
     }
 
@@ -43,14 +63,19 @@ class Hangman {
      * @param {*array} arrayOfIndex 
      * @param {*string} char
      */
-    updateWordGuess(wordGuess, arrayOfIndex, char){
-        var service = new Service();
-
-        for(var i = 0; i < arrayOfIndex.length; i++){
-            var wordGuess = service.ReplaceAtIndex(wordGuess, arrayOfIndex[i], char);
+    updateWordGuess(wordGuess, arrayOfIndex){
+        // get original letter of the word, using to replace in the new word
+        var arrayOfLetter = [];
+        for(i = 0; i < arrayOfIndex.length; i++){
+            arrayOfLetter[i] = this.word.charAt(arrayOfIndex[i]);
         }
 
-        return wordGuess;
+        // replace wordguess by the letter of arrayOfletter, at the position index in arrayOfIndex
+        for(var i = 0; i < arrayOfIndex.length; i++){
+            var wordGuess = this.service.ReplaceAtIndex(wordGuess, arrayOfIndex[i], arrayOfLetter[i]);
+        }
+
+        this.wordGuess = wordGuess;
     }
 
     

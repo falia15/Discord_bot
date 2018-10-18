@@ -1,5 +1,8 @@
 {
-    "token": "Mjg2NDcyMzI3MDQ1MTg1NTQ2.DiT3bg.9O2-QFTgCxqXnuylXsfSmaZwnYE",
-    "databaseName" : "YourDatabaseName",
-    "OwnerID" : "YourId"
+    "token": "yourtoken",
+    "OwnerID" : "YourId",
+    "AnilistAPI" : {
+        "client_id" : "",
+        "client_secret" : ""
+    }
 }

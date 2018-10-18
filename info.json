@@ -4,9 +4,12 @@
         "help" : "help",
         "joke" : "joke",
         "hangman" : "man",
-        "talk" : "say"
+        "talk" : "say",
+        "anime" : "ani"
     },
-    "jeu" : "NieR Automata",
-    "hangmanGameStart" : "start",
-    "hangmanGameShow" : "show"
+    "jeu" : "Faire chier",
+    "hangman" : {
+        "startGame" : "start",
+        "showWord" : "show"
+    }
 }
