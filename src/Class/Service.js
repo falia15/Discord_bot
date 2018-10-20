@@ -62,10 +62,15 @@ class Service {
         return str.replace(new RegExp(find, 'g'), replace);
     }
 
+    /**
+     * check if array data is undefindd, if not check if the string contain the needle parameter
+     * @param {*string} needle 
+     * @param {*array} array 
+     */
     searchInStrings(needle, array){
 
         for(var i=0; i<array.length; i++){
-            if(typeof array[i] != undefined){
+            if(typeof array[i] != 'undefined'){
                 if(array[i].toLowerCase().includes(needle)){
                     return array[i];
                 }
