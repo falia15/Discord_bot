@@ -3,8 +3,10 @@
  */
 class Hangman {
 
-    constructor(service){
+    constructor(service, Discord){
         this.service = service;
+        this.discord = Discord;
+        this.letters = [];
         this.resetValue();
     }
 
@@ -53,7 +55,10 @@ class Hangman {
      * @return {*string}
      */
     genereWordGuess(){
-        var wordGuess = this.word.replace(/[a-z-éè]/g, '-');
+        var wordGuess = '';
+        for(var i=0; i<this.word.length; i++){
+            wordGuess += '-';
+        }
         return wordGuess;
     }
 
@@ -76,6 +81,18 @@ class Hangman {
         }
 
         this.wordGuess = wordGuess;
+    }
+
+    addLetter(letter){
+        this.letters.push(letter);
+    }
+
+    getLettersToString(){
+        var letterList = '';
+        for(var i=0; i<this.letters.length; i++){
+            letterList += this.letters[i].toUpperCase() + " ";
+        }
+        return letterList;
     }
 
     

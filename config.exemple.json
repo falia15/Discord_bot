@@ -1,8 +1,4 @@
 {
     "token": "yourtoken",
-    "OwnerID" : "YourId",
-    "AnilistAPI" : {
-        "client_id" : "",
-        "client_secret" : ""
-    }
+    "OwnerID" : "YourId"
 }

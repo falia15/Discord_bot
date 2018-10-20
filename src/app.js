@@ -10,21 +10,25 @@ const Service = require('./Class/Service.js');
 const Hangman = require('./Class/Hangman.js');
 const BasicCommand = require('./Class/BasicCommand.js');
 const Anime = require('./Class/Anime.js');
+const Server = require('./Class/Server.js');
 
 // initialise needed Class
 const myBot = new Discord.Client();
 const command = new Command(info);
 const service = new Service();
 
-const hangman = new Hangman(service);
+//const hangman = new Hangman(service);
 const basicCommand = new BasicCommand(Discord, service, info, command);
 const anime = new Anime(Discord, service);
+const server = new Server();
 
 // Check if the bot is working
 myBot.on('ready',  () => {
     console.log("Je suis là !");
     myBot.user.setActivity(info.jeu + ` | ${info.prefix}help`);
 });
+
+let servers = [];
 
 myBot.on('message', message => {
 
@@ -48,11 +52,18 @@ myBot.on('message', message => {
 
     // get all content after the prefix + hangman command (here =prefix)
     var hangmanMessage = command.getMessageContent(message, info.commands.hangman);
+    var serverId = server.getIdServer(message);
+    
+    if(hangmanMessage && serverId != null){
+        
+        if(typeof server.getHangman(serverId) == 'undefined'){
+            server.addHangman(serverId, new Hangman(service, Discord));
+        }
+        let hangman = server.getHangman(serverId);
 
-    if(hangmanMessage){
         // check if the game start command is send
         if(hangmanMessage == info.hangman.startGame){
-            
+
             if(hangman.isRunning){
                 return message.channel.send('The game has already begun');
             }
@@ -82,9 +93,10 @@ myBot.on('message', message => {
             } else {
                 // if the user's letter was not in the word, decrease life point and send error message
                 hangman.life = hangman.life -1;
+                hangman.addLetter(hangmanMessage);
 
                 if(hangman.life > 0){
-                    message.channel.send(`The letter ${hangmanMessage} is not in the word, you still have ${hangman.life} life`);
+                    message.channel.send(`AHAHAH The letter ${hangmanMessage} is not in the word \n you still have ${hangman.life} life \nLetter said : ${hangman.getLettersToString()}`);
                 } else {
                     message.channel.send(`You lost, the word was : ${hangman.word}`);
                     hangman.isRunning = false;
@@ -102,7 +114,7 @@ myBot.on('message', message => {
         // show the current word to guess
         if(hangmanMessage == info.hangman.showWord){
             if(hangman.isRunning){
-                message.channel.send(`The current word is : ${hangman.wordGuess}`);
+                message.channel.send(`The current word is : ${hangman.wordGuess} \n Letter said : ${hangman.getLettersToString()}`);
             } else {
                 message.channel.send(`You first need to start the game with ${info.prefix}${info.commands.hangman} ${info.hangman.startGame}`);
             }
@@ -117,7 +129,6 @@ myBot.on('message', message => {
     if(animeName){
         anime.getAnime(animeName);
         message.channel.send(anime.printAnime());
-        
     }
 
     // only owner command
