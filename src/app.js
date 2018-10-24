@@ -9,7 +9,7 @@ const Command = require('./Class/Command');
 const Service = require('./Class/Service.js');
 const Hangman = require('./Class/Hangman.js');
 const BasicCommand = require('./Class/BasicCommand.js');
-const Anime = require('./Class/Anime.js');
+const Kitsu = require('./Class/Kitsu.js');
 const Server = require('./Class/Server.js');
 
 // initialise needed Class
@@ -19,7 +19,7 @@ const service = new Service();
 
 //const hangman = new Hangman(service);
 const basicCommand = new BasicCommand(Discord, service, info, command);
-const anime = new Anime(Discord, service);
+const kitsu = new Kitsu(Discord, service, info);
 const server = new Server();
 
 // Check if the bot is working
@@ -125,10 +125,17 @@ myBot.on('message', message => {
     // ANIME FEATURES
 
     var animeName = command.getMessageContent(message, info.commands.anime);
-
+    
     if(animeName){
-        anime.getAnime(animeName);
-        message.channel.send(anime.printAnime());
+        kitsu.getKitsu(animeName, info.commands.anime);
+        message.channel.send(kitsu.printKitsu());
+    }
+
+    var mangaName = command.getMessageContent(message, info.commands.manga);
+
+    if(mangaName){
+        kitsu.getKitsu(mangaName, info.commands.manga);
+        message.channel.send(kitsu.printKitsu());
     }
 
     // only owner command

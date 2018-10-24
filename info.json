@@ -3,9 +3,10 @@
     "commands" : {
         "help" : "help",
         "joke" : "joke",
-        "hangman" : "man",
+        "hangman" : "h",
         "talk" : "say",
-        "anime" : "ani"
+        "anime" : "ani",
+        "manga" : "man"
     },
     "jeu" : "Faire chier",
     "hangman" : {

@@ -13,7 +13,7 @@ class Hangman {
     resetValue(){
         this.word = this.getWord();
         this.isRunning = false;
-        this.life = 12;
+        this.life = 11;
         this.wordGuess = this.genereWordGuess();
     }
 

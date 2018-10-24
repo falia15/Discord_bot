@@ -26,23 +26,21 @@ class BasicCommand {
     getHelp(){
         var embed = new this.discord.RichEmbed()
             .setTitle("Command List")
-            .setAuthor("Mama", "https://pbs.twimg.com/media/Dcqe0TIVQAEi-69.jpg")
             .setDescription("Here are a list of the available commands")
             .setColor("#d0f0c0")
             .addField("Tell a joke",
                         `${this.info.prefix}${this.info.commands.joke}`)
-            .addField("Search anime",
-                        `${this.info.prefix}${this.info.commands.anime} + anime name`)
+            .addField("Search anime/manga",
+                        `${this.info.prefix}${this.info.commands.anime} + anime name | ${this.info.prefix}${this.info.commands.manga} + manga name`)
             .addField("Hangman Game",
-                        "One player thinks of a wordand the other(s) tries to guess it by suggesting letters, within a certain number of guesses.")
+                        "One player thinks of a word and the other(s) tries to guess it by suggesting letters, within a certain number of guesses.")
             .addField("Start the game",
                          ` ${this.info.prefix}${this.info.commands.hangman} ${this.info.hangman.startGame}`)
             .addField("Suggest a letter",
                         `${this.info.prefix}${this.info.commands.hangman} + letter`)
             .addField("Show the current word of the running game",
                         `${this.info.prefix}${this.info.commands.hangman} ${this.info.hangman.showWord}`)
-            .setImage("https://i.redd.it/2lhcvv45pmaz.jpg")
-            .setFooter("Image Credit : https://www.reddit.com/r/BokuNoHeroAcademia/comments/6oc64d/all_might_and_the_young_boys/");
+            .setImage("https://www.ps4wallpapers.com/wp-content/uploads/2018/01/PS4Wallpapers.com_5a6308ad94dee_persona5wall.jpg")
                         
         return embed;
         
