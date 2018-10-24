@@ -1,9 +1,5 @@
 class Api {
 
-    constructor(){
-        this.res;
-    }
-
     formatItem(item){
         return item.replace(/[ ]/g, '-');
     }
@@ -22,7 +18,7 @@ class Api {
             resp = xmlHttp.responseText;
         }
 
-        this.res = JSON.parse(resp);
+        return JSON.parse(resp);
     }
 
 

@@ -6,14 +6,13 @@ const api = new Api();
  */
 class Kitsu extends Api {
 
-    constructor(Discord, service, info, res){
+    constructor(Discord, service, info){
         // Classes
-        super(res);
+        super();
         this.discord = Discord;
         this.service = service;
         this.info = info;
         // Kitsu Api, required parameter
-        //this.kitsuUrl = 'https://kitsu.io/anime/';
         this.kitsuData;
         this.kitsuSlug;
         this.title;
@@ -27,7 +26,7 @@ class Kitsu extends Api {
      * @param {*string} mediaName, name of the media (anime, manga) requested
      * @param {*string} mediaType define if the media is an anime or a manga, compare it by the command sent
      */
-    getKitsu(mediaName, mediaType){
+    loadMedia(mediaName, mediaType){
 
         // init valid data
         this.dataValid = true;
@@ -44,22 +43,20 @@ class Kitsu extends Api {
         }
 
         
-        this.getData(req);
+        var res = this.getData(req);
 
         // Check if valid data
-        if((typeof this.res.data[0] == 'undefined') || typeof this.res.data[0].attributes === 'undefined'){
+        if((typeof res.data[0] == 'undefined') || typeof res.data[0].attributes === 'undefined'){
             this.dataValid = false;
             return;
         }
 
-        this.kitsuData = this.res.data[0].attributes;
+        this.kitsuData = res.data[0].attributes;
 
         // array the media different titles, check if the media request match one of those titles
         var avalaibleTitles = [this.kitsuData.titles.en_jp, 
                                 this.kitsuData.titles.en,
-                                this.kitsuData.canonicalTitle, 
-                                this.kitsuData.abbreviatedTitles[0],
-                                this.kitsuData.abbreviatedTitles[1]
+                                this.kitsuData.canonicalTitle
                             ];
 
         // Check if the mediaName given as parameter is a part of one of the animes titles (english and japanese version)
@@ -70,7 +67,7 @@ class Kitsu extends Api {
         }
     }
 
-    printKitsu(){
+    displayCurrentMedia(){
         
         // handle error response
         if(this.dataValid == false){

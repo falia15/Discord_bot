@@ -127,15 +127,15 @@ myBot.on('message', message => {
     var animeName = command.getMessageContent(message, info.commands.anime);
     
     if(animeName){
-        kitsu.getKitsu(animeName, info.commands.anime);
-        message.channel.send(kitsu.printKitsu());
+        kitsu.loadMedia(animeName, info.commands.anime);
+        message.channel.send(kitsu.displayCurrentMedia());
     }
 
     var mangaName = command.getMessageContent(message, info.commands.manga);
 
     if(mangaName){
-        kitsu.getKitsu(mangaName, info.commands.manga);
-        message.channel.send(kitsu.printKitsu());
+        kitsu.loadMedia(mangaName, info.commands.manga);
+        message.channel.send(kitsu.displayCurrentMedia());
     }
 
     // only owner command
