@@ -30,33 +30,41 @@ class Kitsu extends Api {
 
         // init valid data
         this.dataValid = true;
+
+        var regex = /\w+/;
+
+        if(!mediaName.match(regex)){
+            this.dataValid = false;
+            return;
+        }
+
         // get anime name format "like-that"
         this.kitsuSlug = this.formatItem(mediaName);
 
         // generate API request
         if(mediaType == this.info.commands.anime){
             var req = `https://kitsu.io/api/edge/anime?filter[text]=${this.kitsuSlug}&filter[subtype]=TV,movie,OAV,ONA`;
-            this.kitsuUrl = 'https://kitsu.io/api/edge/anime';
+            this.kitsuUrl = 'https://kitsu.io/anime/';
         } else {
             var req = `https://kitsu.io/api/edge/manga?filter[text]=${this.kitsuSlug}&filter[subtype]=manga,novel`;
-            this.kitsuUrl = 'https://kitsu.io/api/edge/manga';
+            this.kitsuUrl = 'https://kitsu.io/manga/';
         }
 
-        
         var res = this.getData(req);
-
+        
         // Check if valid data
-        if((typeof res.data[0] == 'undefined') || typeof res.data[0].attributes === 'undefined'){
+        if((typeof res.data == 'undefined') || (typeof res.data[0] == 'undefined') || typeof res.data[0].attributes === 'undefined'){
             this.dataValid = false;
             return;
         }
 
         this.kitsuData = res.data[0].attributes;
-
+        
         // array the media different titles, check if the media request match one of those titles
         var avalaibleTitles = [this.kitsuData.titles.en_jp, 
                                 this.kitsuData.titles.en,
-                                this.kitsuData.canonicalTitle
+                                this.kitsuData.canonicalTitle,
+                                this.kitsuData.slug.replace(/[-]/g, ' ')
                             ];
 
         // Check if the mediaName given as parameter is a part of one of the animes titles (english and japanese version)
@@ -65,6 +73,7 @@ class Kitsu extends Api {
         if(this.title == null){
             this.dataValid = false;
         }
+        
     }
 
     displayCurrentMedia(){

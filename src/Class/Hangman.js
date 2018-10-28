@@ -84,13 +84,13 @@ class Hangman {
     }
 
     addLetter(letter){
-        this.letters.push(letter);
+        this.letters.push(letter.toUpperCase());
     }
 
     getLettersToString(){
         var letterList = '';
         for(var i=0; i<this.letters.length; i++){
-            letterList += this.letters[i].toUpperCase() + " ";
+            letterList += this.letters[i] + " ";
         }
         return letterList;
     }

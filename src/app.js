@@ -28,8 +28,6 @@ myBot.on('ready',  () => {
     myBot.user.setActivity(info.jeu + ` | ${info.prefix}help`);
 });
 
-let servers = [];
-
 myBot.on('message', message => {
 
     // prevent from answering to itself
@@ -37,9 +35,7 @@ myBot.on('message', message => {
 
     // tell a random joke
     if(command.joke(message)){
-
         joke = basicCommand.getJoke();
-
         message.channel.send(joke);
     }
 
@@ -96,7 +92,7 @@ myBot.on('message', message => {
                 hangman.addLetter(hangmanMessage);
 
                 if(hangman.life > 0){
-                    message.channel.send(`AHAHAH The letter ${hangmanMessage} is not in the word \n you still have ${hangman.life} life \nLetter said : ${hangman.getLettersToString()}`);
+                    message.channel.send(`AHAHAH The letter "${hangmanMessage}" is not in the word \n you still have ${hangman.life} life \nLetter said : ${hangman.getLettersToString()}`);
                 } else {
                     message.channel.send(`You lost, the word was : ${hangman.word}`);
                     hangman.isRunning = false;
