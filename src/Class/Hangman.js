@@ -6,7 +6,6 @@ class Hangman {
     constructor(service, Discord){
         this.service = service;
         this.discord = Discord;
-        this.letters = [];
         this.resetValue();
     }
 
@@ -15,6 +14,7 @@ class Hangman {
         this.isRunning = false;
         this.life = 11;
         this.wordGuess = this.genereWordGuess();
+        this.letters = [];
     }
 
     /**

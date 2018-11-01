@@ -11,6 +11,7 @@ const Hangman = require('./Class/Hangman.js');
 const BasicCommand = require('./Class/BasicCommand.js');
 const Kitsu = require('./Class/Kitsu.js');
 const Server = require('./Class/Server.js');
+const Quote = require('./Class/Quote.js');
 
 // initialise needed Class
 const myBot = new Discord.Client();
@@ -21,6 +22,7 @@ const service = new Service();
 const basicCommand = new BasicCommand(Discord, service, info, command);
 const kitsu = new Kitsu(Discord, service, info);
 const server = new Server();
+const quote = new Quote();
 
 // Check if the bot is working
 myBot.on('ready',  () => {
@@ -96,6 +98,7 @@ myBot.on('message', message => {
                 } else {
                     message.channel.send(`You lost, the word was : ${hangman.word}`);
                     hangman.isRunning = false;
+                    hangman.resetValue();
                 }
             }
 
@@ -103,7 +106,7 @@ myBot.on('message', message => {
 
         // winning condition
         if(hangman.wordGuess == hangman.word && hangman.isRunning){
-            message.channel.send(`You won ! The word was ${hangman.word}`);
+            message.channel.send(`You won ! The word was "${hangman.word}"`);
             hangman.resetValue();
         }
 
@@ -132,6 +135,12 @@ myBot.on('message', message => {
     if(mangaName){
         kitsu.loadMedia(mangaName, info.commands.manga);
         message.channel.send(kitsu.displayCurrentMedia());
+    }
+
+    var quoteMessage = quote.isQuote(message);
+
+    if(quote.isQuote(message)){
+        message.channel.send(quoteMessage);
     }
 
     // only owner command
