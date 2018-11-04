@@ -52,7 +52,7 @@ class BasicCommand {
      * @return {*array} 
      */
     talkInstead(message){
-        return this.command.getMessageContent(message, info.commands.talk).split('||');
+        return this.command.getMessageContent(message, this.info.commands.talk).split('||');
     }
 
 
