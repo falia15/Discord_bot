@@ -29,7 +29,8 @@ class Hangman {
     }
 
     /**
-     * check if the letter parameter is in the word parameter, return an array of the letter position in the word string
+     * check if the letter parameter is in the word parameter
+     * return an array of the letter position in the word string
      * @param {*char} letter
      * @return {*array} 
      */

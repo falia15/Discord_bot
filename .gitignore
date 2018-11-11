@@ -1,6 +1,7 @@
 .gitigore
 node_modules
 config.json
+info.json
 src/data/joke.js
 src/data/word.js
 package-lock.json
