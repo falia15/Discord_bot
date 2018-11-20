@@ -1,0 +1,16 @@
+{
+    "prefix" : "<",
+    "commands" : {
+        "help" : "help",
+        "joke" : "joke",
+        "hangman" : "h",
+        "talk" : "say",
+        "anime" : "ani",
+        "manga" : "man"
+    },
+    "jeu" : "Persona 5",
+    "hangman" : {
+        "startGame" : "start",
+        "showWord" : "show"
+    }
+}
