@@ -163,4 +163,8 @@ myBot.on('message', message => {
     
 });
 
+myBot.on("error", (e) => console.error(e));
+myBot.on("warn", (e) => console.warn(e));
+myBot.on("debug", (e) => console.info(e));
+
 myBot.login(config.token);
