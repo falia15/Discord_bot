@@ -4,5 +4,6 @@ config.json
 info.json
 src/data/joke.js
 src/data/word.js
+src/data/quote.js
 package-lock.json
 .vscode
