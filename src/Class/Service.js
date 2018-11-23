@@ -70,7 +70,7 @@ class Service {
     searchInStrings(needle, array){
 
         for(var i=0; i<array.length; i++){
-            if(typeof array[i] != 'undefined' && typeof array[i] != null){
+            if(array[i] && typeof array[i] != 'undefined'){
                 if(array[i].toLowerCase().includes(needle)){
                     return array[i];
                 }
