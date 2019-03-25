@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon src/app.js"
+    "start": "nodemon src/app.js",
+    "test": "mocha src/test/serviceTest.js"
   },
   "author": "Mathilde",
   "license": "ISC",
@@ -14,8 +15,10 @@
   },
   "devDependencies": {
     "bufferutil": "^3.0.5",
+    "chai": "^4.2.0",
     "erlpack": "github:discordapp/erlpack",
     "libsodium-wrappers": "^0.7.4",
+    "mocha": "^6.0.2",
     "node-opus": "^0.2.9",
     "nodemon": "^1.18.6",
     "opusscript": "0.0.6",
