@@ -68,10 +68,10 @@ class Kitsu extends Api {
                             ];
 
         // Check if the mediaName given as parameter is a part of one of the animes titles (english and japanese version)
-        this.title = this.service.searchInStrings(mediaName, avalaibleTitles);
-
-        if(this.title == null){
-            this.dataValid = false;
+        if(this.service.searchInStrings(mediaName, avalaibleTitles)){
+            this.title = mediaName;
+        } else {
+            this.dataValid == false
         }
         
     }
