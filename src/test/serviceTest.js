@@ -137,20 +137,64 @@ describe('Service', function() {
     describe('searchInStrings', function(){
         it('test with a undefing value inside the array', function(){
             let needle = 'a';
-            let array = ['undefing'];
+            let array = ['undefind'];
             assert.equal(service.searchInStrings(needle, array), false);
         });
 
         it('test with a word inside the string', function(){
             let needle = 'hello';
             let array = ['hello world'];
-            assert.equal(service.searchInStrings(needle, array), true);
+            assert.equal(service.searchInStrings(needle, array), 'hello world');
         });
 
-        it('test type', function(){
+        it('test type string', function(){
             let needle = 'hello';
             let array = ['hello world'];
-            expect(service.searchInStrings(needle, array)).to.be.a('boolean');
+            expect(service.searchInStrings(needle, array)).to.be.a('string');
         });
     });
+
+    describe('formatAsSlug', function(){
+        it('test string with one space between word', function(){
+            let string = "hello my friend";
+            assert.equal(service.formatAsSlug(string), "hello-my-friend");
+        });
+
+        it('test string with 2 spaces between word', function(){
+            let string = "hello  my  friend";
+            assert.equal(service.formatAsSlug(string), "hello--my--friend");
+        });
+
+        it('test string with extrat space at the end', function(){
+            let string = "hello my friend ";
+            assert.equal(service.formatAsSlug(string), "hello-my-friend-");
+        });
+        
+        it('test return type, should be a string', function(){
+            let string = "hello my friend ";
+            expect(service.formatAsSlug(string)).to.be.a('string');
+        });
+    });
+
+    describe('areSpecialChar', function(){
+        it('test normal string', function(){
+            let string = "hi there";
+            assert.equal(service.areSpecialChar(string), true);
+        });
+
+        it('test accent string', function(){
+            let string = "ééééé";
+            assert.equal(service.areSpecialChar(string), false);
+        });
+
+        it('test special character', function(){
+            let string = ")àçççç";
+            assert.equal(service.areSpecialChar(string), false);
+        });
+
+        it('test return type, sould be a boolean', function(){
+            let string = "eeeee";
+            expect(service.areSpecialChar(string)).to.be.a('boolean');
+        });
+    })
 });

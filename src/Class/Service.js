@@ -70,16 +70,40 @@ class Service {
      * check if array data is undefind, if not check if the string contain the needle parameter
      * @param {*string} needle 
      * @param {*array} array 
+     * @return {*string or bool} return the first needle found or false if nothing is found
      */
     searchInStrings(needle, array){
         for(let i = 0; i < array.length; i++){
             if(array[i] && typeof array[i] != 'undefined'){
                 if(array[i].toLowerCase().includes(needle)){
-                    return true;
+                    return array[i];
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * format a string as a slug "like-that"
+     * @param {*string} string 
+     */
+    formatAsSlug(string){
+        return string.replace(/[ ]/g, '-');
+    }
+
+    /**
+     * Verif special character
+     * @param {*string} string
+     * @return {*bool} 
+     */
+    areSpecialChar(string){
+        var regex = /\w+/;
+
+        if(string.match(regex)){
+            return true;
+        }
+        return false;
+
     }
 
 }

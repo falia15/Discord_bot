@@ -12,6 +12,7 @@ const BasicCommand = require('./Class/BasicCommand.js');
 const Kitsu = require('./Class/Kitsu.js');
 const Server = require('./Class/Server.js');
 const Quote = require('./Class/Quote.js');
+const fetch = require("node-fetch");
 
 // initialise needed Class
 const myBot = new Discord.Client();
@@ -20,7 +21,7 @@ const service = new Service();
 
 //const hangman = new Hangman(service);
 const basicCommand = new BasicCommand(Discord, service, info, command);
-const kitsu = new Kitsu(Discord, service, info);
+const kitsu = new Kitsu(Discord, service, info, fetch);
 const server = new Server();
 const quote = new Quote();
 
@@ -124,17 +125,28 @@ myBot.on('message', message => {
     // ANIME FEATURES
 
     var animeName = command.getMessageContent(message, info.commands.anime);
-    
-    if(animeName){
-        kitsu.loadMedia(animeName, info.commands.anime);
-        message.channel.send(kitsu.displayCurrentMedia());
-    }
-
     var mangaName = command.getMessageContent(message, info.commands.manga);
 
-    if(mangaName){
-        kitsu.loadMedia(mangaName, info.commands.manga);
-        message.channel.send(kitsu.displayCurrentMedia());
+    if(animeName || mangaName){
+
+        let mediaCommand = animeName ? info.commands.anime : info.commands.manga;
+
+        if(!kitsu.createMedia(animeName, mediaCommand)){
+            message.channel.send('Wtf is that');
+            return;
+        }
+        
+        kitsu.handleRequest(kitsu.getRequest()).then(data => {
+            if(data == false){
+                message.channel.send("I don't know this anime, I'm not a weeb like you");
+                return;
+            }
+            let anime = kitsu.displayMedia(data);
+            message.channel.send(anime);
+        }).catch(error => {
+            console.log(error);
+        });
+        
     }
 
     var quoteMessage = quote.isQuote(message);
