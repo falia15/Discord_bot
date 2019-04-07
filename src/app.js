@@ -6,11 +6,11 @@ const info = require('../info.json');
 const Discord = require("discord.js");
 
 const Command = require('./Class/Command');
-const Service = require('./Class/Service.js');
-const Hangman = require('./Class/Hangman.js');
+const Service = require('./Class/business/Service.js');
+const Hangman = require('./Class/Hangman/Hangman.js');
 const BasicCommand = require('./Class/BasicCommand.js');
-const Kitsu = require('./Class/Kitsu.js');
-const Server = require('./Class/Server.js');
+const Kitsu = require('./Class/Anime/Kitsu.js');
+const Server = require('./Class/business/Server.js');
 const Quote = require('./Class/Quote.js');
 const fetch = require("node-fetch");
 
