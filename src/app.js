@@ -62,20 +62,20 @@ myBot.on('message', message => {
     if(hangmanMessage && serverId != null){
         
         if(typeof server.getHangman(serverId) == 'undefined'){
-            server.addHangman(serverId, new Hangman(service, Discord));
+            server.addHangman(serverId, new Hangman(service, info));
         }
         let hangman = server.getHangman(serverId);
 
         // check if the game start command is send
-        if(hangmanMessage == info.hangman.startGame){
+        if(hangmanMessage == hangman.startCommand()){
 
             if(hangman.isRunning){
                 return message.channel.send('The game has already begun');
             }
 
-            hangman.isRunning = true;
+            hangman.start();
 
-            message.channel.send(`A new game was launch ! Do your best ! \n Word : ${hangman.wordGuess}`);
+            message.channel.send(`A new game was launch ! Do your best ! \n Word : ${hangman.word.wordGuess}`);
         
         }
 
@@ -83,46 +83,46 @@ myBot.on('message', message => {
         if(service.isLetter(hangmanMessage)){
 
             // check if the game was previously initialise, as 0 is the default value of "word" variable
-            if(!hangman.isRunning){
-                return message.channel.send(`You first need to start the game with ${info.prefix}${info.commands.hangman} ${info.hangman.startGame}`);
+            if(hangman.isRunning == false){
+                return message.channel.send('You first need to start the game with ' + hangman.fullStartCommand());
             }
 
             // return an array of the letter index inside the word variable
-            var arrayOfLetter = hangman.isLetterInWord(hangmanMessage);
+            var arrayOfLetter = hangman.word.isLetterInWord(hangmanMessage);
 
             // check if the array lenth is bigger than 0, it means the user's letter was in the word
             if(arrayOfLetter.length > 0){
-                hangman.updateWordGuess(hangman.wordGuess, arrayOfLetter, hangmanMessage);
+                hangman.word.updateWordGuess(hangman.word.wordGuess, arrayOfLetter, hangmanMessage);
 
-                message.channel.send(hangman.wordGuess);
+                message.channel.send(hangman.word.wordGuess);
             } else {
                 // if the user's letter was not in the word, decrease life point and send error message
-                hangman.life = hangman.life -1;
-                hangman.addLetter(hangmanMessage);
+                hangman.decreaseLife();
+                hangman.word.addLetter(hangmanMessage);
 
-                if(hangman.life > 0){
-                    message.channel.send(`AHAHAH The letter "${hangmanMessage}" is not in the word \n you still have ${hangman.life} life \nLetter said : ${hangman.getLettersToString()}`);
+                if(hangman.hasLife()){
+                    message.channel.send(`AHAHAH The letter "${hangmanMessage}" is not in the word \n you still have ${hangman.life} life \nLetter said : ${hangman.word.getLettersToString()}`);
                 } else {
-                    message.channel.send(`You lost, the word was : ${hangman.word}`);
-                    hangman.isRunning = false;
-                    hangman.resetValue();
+                    message.channel.send(`You lost, the word was : ${hangman.word.wordToFind}`);
+                    hangman.stop();
+                    hangman.word.resetValue();
                 }
             }
 
         }
 
         // winning condition
-        if(hangman.wordGuess == hangman.word && hangman.isRunning){
-            message.channel.send(`You won ! The word was "${hangman.word}"`);
+        if(hangman.isGameWin()){
+            message.channel.send(`You won ! The word was "${hangman.word.wordToFind}"`);
             hangman.resetValue();
         }
 
         // show the current word to guess
-        if(hangmanMessage == info.hangman.showWord){
+        if(hangmanMessage == hangman.showCommand()){
             if(hangman.isRunning){
-                message.channel.send(`The current word is : ${hangman.wordGuess} \n Letter said : ${hangman.getLettersToString()}`);
+                message.channel.send(`The current word is : ${hangman.word.wordGuess} \n Letter said : ${hangman.word.getLettersToString()}`);
             } else {
-                message.channel.send(`You first need to start the game with ${info.prefix}${info.commands.hangman} ${info.hangman.startGame}`);
+                message.channel.send('You first need to start the game with ' + hangman.fullStartCommand());
             }
         }
 
