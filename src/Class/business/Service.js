@@ -18,11 +18,15 @@ class Service {
      * @return {*bool}
      */
     isLetter(str){
-        return str.length === 1 && str.match(/[a-z-éè]/i);
-    }
+        if(str.length === 1 && str.match(/[a-z-éè]/i)){
+            return true;
+        }
+        return false;
+    }   
 
     /**
      * Reproduce the behavior of search function, but in this case it return all occurences in a array
+     * return an array of the letters position in the word string
      * Source : https://stackoverflow.com/questions/3410464/how-to-find-indices-of-all-occurrences-of-one-string-in-another-in-javascript
      * @param {*string} haystack 
      * @param {*string} neddle 
@@ -30,7 +34,7 @@ class Service {
      */
     strSearchAll(haystack, neddle){
         var result = [];
-        for (var i = 0; i < haystack.length; ++i) {
+        for (let i = 0; i < haystack.length; i++) {
             if (haystack.substring(i, i + neddle.length) == neddle) {
                 result.push(i);
             }
@@ -63,25 +67,44 @@ class Service {
     }
 
     /**
-     * check if array data is undefindd, if not check if the string contain the needle parameter
+     * check if array data is undefind, if not check if the string contain the needle parameter
      * @param {*string} needle 
      * @param {*array} array 
+     * @return {*string or bool} return the first needle found or false if nothing is found
      */
     searchInStrings(needle, array){
-
-        for(var i=0; i<array.length; i++){
+        for(let i = 0; i < array.length; i++){
             if(array[i] && typeof array[i] != 'undefined'){
                 if(array[i].toLowerCase().includes(needle)){
                     return array[i];
                 }
             }
         }
-        
-        return null;
-
+        return false;
     }
 
+    /**
+     * format a string as a slug "like-that"
+     * @param {*string} string 
+     */
+    formatAsSlug(string){
+        return string.replace(/[ ]/g, '-');
+    }
 
+    /**
+     * Verif special character
+     * @param {*string} string
+     * @return {*bool} 
+     */
+    areSpecialChar(string){
+        var regex = /\w+/;
+
+        if(string.match(regex)){
+            return true;
+        }
+        return false;
+
+    }
 
 }
 

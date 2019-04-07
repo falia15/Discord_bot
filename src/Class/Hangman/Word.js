@@ -1,18 +1,15 @@
 /**
- * Hangman the game
+ * Handle Hangman's word logic
  */
-class Hangman {
+class Word {
 
-    constructor(service, Discord){
+    constructor(service){
         this.service = service;
-        this.discord = Discord;
         this.resetValue();
     }
 
     resetValue(){
-        this.word = this.getWord();
-        this.isRunning = false;
-        this.life = 11;
+        this.wordToFind = this.genereWord();
         this.wordGuess = this.genereWordGuess();
         this.letters = [];
     }
@@ -21,12 +18,13 @@ class Hangman {
      * random word whitin an array of word.
      * @return {*string}
      */
-    getWord(){
-        var arrayOfWord = require('../data/word.js');
+    genereWord(){
+        var arrayOfWord = require('../../data/word.js');
         var word = this.service.getRandomInArray(arrayOfWord);
 
         return word;
     }
+
 
     /**
      * check if the letter parameter is in the word parameter
@@ -35,7 +33,7 @@ class Hangman {
      * @return {*array} 
      */
     isLetterInWord(letter){
-        var wordToVerif = this.word;
+        var wordToVerif = this.wordToFind;
 
         // handle é as an e
         if(wordToVerif.includes("é")) {
@@ -57,7 +55,7 @@ class Hangman {
      */
     genereWordGuess(){
         var wordGuess = '';
-        for(var i=0; i<this.word.length; i++){
+        for(var i=0; i<this.wordToFind.length; i++){
             wordGuess += '-';
         }
         return wordGuess;
@@ -73,7 +71,7 @@ class Hangman {
         // get original letter of the word, using to replace in the new word
         var arrayOfLetter = [];
         for(i = 0; i < arrayOfIndex.length; i++){
-            arrayOfLetter[i] = this.word.charAt(arrayOfIndex[i]);
+            arrayOfLetter[i] = this.wordToFind.charAt(arrayOfIndex[i]);
         }
 
         // replace wordguess by the letter of arrayOfletter, at the position index in arrayOfIndex
@@ -96,8 +94,6 @@ class Hangman {
         return letterList;
     }
 
-    
-
 }
 
-module.exports = Hangman;
+module.exports = Word;
