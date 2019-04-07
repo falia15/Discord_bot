@@ -4,15 +4,21 @@ const info = require('../info.json');
 
 // Initialise dependencies and require needed class
 const Discord = require("discord.js");
-
-const Command = require('./Class/Command');
-const Service = require('./Class/business/Service.js');
-const Hangman = require('./Class/Hangman/Hangman.js');
-const BasicCommand = require('./Class/BasicCommand.js');
-const Kitsu = require('./Class/Anime/Kitsu.js');
-const Server = require('./Class/business/Server.js');
-const Quote = require('./Class/Quote.js');
 const fetch = require("node-fetch");
+
+// business Class
+const Service = require('./Class/business/Service.js');
+const Server = require('./Class/business/Server.js');
+
+// command class
+const Command = require('./Class/Command');
+const BasicCommand = require('./Class/BasicCommand.js');
+
+// feature/game Class
+const Hangman = require('./Class/Hangman/Hangman.js');
+const Kitsu = require('./Class/Anime/Kitsu.js');
+const Quote = require('./Class/Quote.js');
+
 
 // initialise needed Class
 const myBot = new Discord.Client();
