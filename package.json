@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^11.3.0",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.3.0"
   },
   "devDependencies": {
     "bufferutil": "^3.0.5",
